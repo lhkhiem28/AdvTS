@@ -25,26 +25,18 @@ train_loaders = {
         shuffle = False, 
     ), 
 }
-model = fcn_resnet18(
-    num_classes = 7, 
-)
-optimizer = optim.SGD(
-    model.parameters(), weight_decay = 5e-4, 
-    lr = 5e-4, 
-)
-scheduler = optim.lr_scheduler.StepLR(
-    optimizer, 
-    step_size = 20, gamma = 0.1, 
-)
+FT = torch.load("../../warmup/ckps/P-ACS/P/last.ptl")
+models = {
+    "FT":FT, "FS":fcn_resnet18(), 
+    "GS":fcn_3x64_gctx(), 
+}
 
-save_ckp_dir = "../ckps/P-ACS/{}".format("P")
-if not os.path.exists(save_ckp_dir):
-    os.makedirs(save_ckp_dir)
+save_ckps_dir = "../ckps/P-ACS/{}".format("P")
+if not os.path.exists(save_ckps_dir):
+    os.makedirs(save_ckps_dir)
 train_fn(
-    train_loaders, num_epochs = 25, 
-    model = model, 
-    optimizer = optimizer, 
-    scheduler = scheduler, 
+    train_loaders, num_epochs = 60, 
+    models = models, 
     device = torch.device("cuda"), 
-    save_ckp_dir = save_ckp_dir, 
+    save_ckps_dir = save_ckps_dir, 
 )
