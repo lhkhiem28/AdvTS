@@ -56,8 +56,3 @@ def train_fn(
         "{}/last.ptl".format(save_ckp_dir), 
     )
     print("\nFinish Training ...\n" + " = "*16)
-
-    return {
-        "train_loss":train_loss, "train_accuracy":train_accuracy, 
-        "val_loss":val_loss, "val_accuracy":val_accuracy, 
-    }

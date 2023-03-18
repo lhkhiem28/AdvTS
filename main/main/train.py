@@ -26,6 +26,8 @@ train_loaders = {
     ), 
 }
 FT = torch.load("../../warmup/ckps/P-ACS/P/last.ptl")
+for parameter in FT.classifier.parameters():
+    parameter.requires_grad = False
 models = {
     "FT":FT, "FS":fcn_resnet18(), 
     "GS":fcn_3x64_gctx(), 
