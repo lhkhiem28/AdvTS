@@ -25,7 +25,7 @@ train_loaders = {
         shuffle = False, 
     ), 
 }
-model = resnet18(
+model = fcn_resnet18(
     num_classes = 7, 
 )
 optimizer = optim.SGD(
@@ -45,6 +45,6 @@ train_fn(
     model = model, 
     optimizer = optimizer, 
     scheduler = scheduler, 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu"), 
+    device = torch.device("cuda"), 
     save_ckp_dir = save_ckp_dir, 
 )

@@ -32,8 +32,6 @@ def train_fn(
             "train", 
             train_loss, train_accuracy, 
         ))
-        if scheduler is not None:
-            scheduler.step(), 
 
         with torch.no_grad():
             model.eval()
@@ -51,11 +49,13 @@ def train_fn(
             val_loss, val_accuracy, 
         ))
 
-    print("\nFinish Training ...\n" + " = "*16)
+        scheduler.step(), 
+
     torch.save(
         model, 
         "{}/last.ptl".format(save_ckp_dir), 
     )
+    print("\nFinish Training ...\n" + " = "*16)
 
     return {
         "train_loss":train_loss, "train_accuracy":train_accuracy, 
