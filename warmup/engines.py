@@ -5,7 +5,7 @@ def train_fn(
     train_loaders, num_epochs, 
     model, 
     optimizer, 
-    lr_scheduler, 
+    scheduler, 
     device = torch.device("cpu"), 
     save_ckp_dir = ".", 
 ):
@@ -32,8 +32,8 @@ def train_fn(
             "train", 
             train_loss, train_accuracy, 
         ))
-        if lr_scheduler is not None:
-            lr_scheduler.step(), 
+        if scheduler is not None:
+            scheduler.step(), 
 
         with torch.no_grad():
             model.eval()

@@ -30,21 +30,21 @@ model = ResNet18(
 )
 optimizer = optim.SGD(
     model.parameters(), weight_decay = 5e-4, 
-    lr = 0.002, momentum = 0.9, 
+    lr = 5e-4, 
 )
-lr_scheduler = optim.lr_scheduler.StepLR(
+scheduler = optim.lr_scheduler.StepLR(
     optimizer, 
     step_size = 20, gamma = 0.1, 
 )
 
-save_ckp_dir = "../../ckps/P-ACS/{}".format("P")
+save_ckp_dir = "../ckps/P-ACS/{}".format("P")
 if not os.path.exists(save_ckp_dir):
     os.makedirs(save_ckp_dir)
 train_fn(
     train_loaders, num_epochs = 25, 
     model = model, 
     optimizer = optimizer, 
-    lr_scheduler = lr_scheduler, 
+    scheduler = scheduler, 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu"), 
     save_ckp_dir = save_ckp_dir, 
 )
