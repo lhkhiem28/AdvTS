@@ -51,8 +51,8 @@ def train_fn(
 
         scheduler.step(), 
 
-    torch.save(
-        model, 
-        "{}/last.ptl".format(save_ckp_dir), 
-    )
+        torch.save(
+            model, 
+            "{}/last.ptl".format(save_ckp_dir), 
+        )
     print("\nFinish Training ...\n" + " = "*16)
