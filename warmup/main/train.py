@@ -4,7 +4,7 @@ sys.path.append(__dir__), sys.path.append(os.path.abspath(os.path.join(__dir__, 
 from libs import *
 
 from data import ImageDataset
-from models import ResNet18
+from models import *
 from engines import train_fn
 
 train_loaders = {
@@ -25,7 +25,7 @@ train_loaders = {
         shuffle = False, 
     ), 
 }
-model = ResNet18(
+model = resnet18(
     num_classes = 7, 
 )
 optimizer = optim.SGD(
