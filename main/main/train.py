@@ -25,8 +25,11 @@ train_loaders = {
         shuffle = False, 
     ), 
 }
-FT = torch.load("../../warmup/ckps/P-ACS/P/last.ptl")
-for parameter in FT.classifier.parameters():
+FT = torch.load(
+    "../../warmup/ckps/P-ACS/P/last.ptl", 
+    map_location = "cpu", 
+)
+for parameter in FT.parameters():
     parameter.requires_grad = False
 models = {
     "FT":FT, "FS":fcn_resnet18(), 

@@ -34,14 +34,14 @@ optimizer = optim.SGD(
 )
 scheduler = optim.lr_scheduler.StepLR(
     optimizer, 
-    step_size = 20, gamma = 0.1, 
+    step_size = 5, gamma = 0.1, 
 )
 
 save_ckp_dir = "../ckps/P-ACS/{}".format("P")
 if not os.path.exists(save_ckp_dir):
     os.makedirs(save_ckp_dir)
 train_fn(
-    train_loaders, num_epochs = 25, 
+    train_loaders, num_epochs = 10, 
     model = model, 
     optimizer = optimizer, 
     scheduler = scheduler, 

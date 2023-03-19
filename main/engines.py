@@ -5,10 +5,10 @@ def compute_discrepancy(
     features_T, features_S, 
 ):
     normalized_features_T, normalized_features_S,  = features_T/torch.norm(features_T, p = 2), features_S/torch.norm(features_S, p = 2), 
-    discrepancy = torch.dist(
+    discrepancy = torch.square(torch.dist(
         normalized_features_T, normalized_features_S, 
         p = 2, 
-    )
+    ))
 
     return discrepancy
 
@@ -55,7 +55,11 @@ def train_fn(
 
                 loss_FS = F.cross_entropy(FT.classifier(features_S), labels_T) + discrepancy
                 loss_GS = F.cross_entropy(FT.classifier(features_S), labels_T) - torch.minimum(discrepancy - 0.1, torch.zeros(1).cuda())
+                for parameter in GS.parameters():
+                    parameter.requires_grad = False
                 loss_FS.backward(retain_graph = True)
+                for parameter in GS.parameters():
+                    parameter.requires_grad = True
                 loss_GS.backward(retain_graph = False)
 
                 # Domain Generalized Representation Learning
