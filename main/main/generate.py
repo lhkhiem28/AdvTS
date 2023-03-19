@@ -26,7 +26,7 @@ class Generator():
     def generate(self, 
         image, 
     ):
-        image = self.transform(image = image)["image"]
+        image = self.transform(image = image)["image"].unsqueeze(0)
 
         generated_image = self.GS(image).detach().squeeze(0).permute(1, 2, 0, ).numpy()
         generated_image = self.denormalize(image = generated_image)["image"]*255
