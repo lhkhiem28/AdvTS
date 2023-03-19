@@ -53,8 +53,10 @@ def train_fn(
                     features_T, features_S, 
                 )
 
-                loss_FS = F.cross_entropy(FT.classifier(features_S), labels_T) + discrepancy
-                loss_GS = F.cross_entropy(FT.classifier(features_S), labels_T) - torch.minimum(discrepancy - 0.1, torch.zeros(1).cuda())
+                loss_FS = F.cross_entropy(FT.classifier(features_S), labels_T) \
+                        + discrepancy
+                loss_GS = F.cross_entropy(FT.classifier(features_S), labels_T) \
+                        - torch.minimum(discrepancy - 1.0, torch.zeros(1).cuda())
                 for parameter in GS.parameters():
                     parameter.requires_grad = False
                 loss_FS.backward(retain_graph = True)
@@ -95,6 +97,10 @@ def train_fn(
         scheduler_FS.step(), 
         scheduler_GS.step(), 
 
+        torch.save(
+            FT, 
+            "{}/FT.ptl".format(save_ckps_dir), 
+        )
         torch.save(
             GS, 
             "{}/GS.ptl".format(save_ckps_dir), 
