@@ -22,11 +22,11 @@ def train_fn(
     FT, FS,  = models["FT"].to(device), models["FS"].to(device), 
     GS = models["GS"].to(device)
     optimizer_FS = optim.SGD(
-        FS.parameters(), weight_decay = 5e-4, 
+        FS.parameters(), 
         lr = 5e-4, 
     )
     optimizer_GS = optim.SGD(
-        GS.parameters(), weight_decay = 5e-4, 
+        GS.parameters(), 
         lr = 5e-4, 
     )
     scheduler_FS = optim.lr_scheduler.StepLR(
@@ -54,7 +54,7 @@ def train_fn(
                 )
 
                 loss_FS = F.cross_entropy(FT.classifier(features_S), labels_T) + discrepancy
-                loss_GS = F.cross_entropy(FT.classifier(features_S), labels_T) - torch.minimum(discrepancy - 0.01, torch.zeros(1).cuda())
+                loss_GS = F.cross_entropy(FT.classifier(features_S), labels_T) - torch.minimum(discrepancy - 0.1, torch.zeros(1).cuda())
                 loss_FS.backward(retain_graph = True)
                 loss_GS.backward(retain_graph = False)
 
