@@ -10,7 +10,7 @@ from engines import train_fn
 train_loaders = {
     "train":torch.utils.data.DataLoader(
         ImageDataset(
-            data_dir = "../../datasets/P-ACS/{}/".format("ACS"), 
+            data_dir = "../../datasets/ACS-P/{}/*/".format("ACS"), 
             augment = True, 
         ), 
         num_workers = 8, batch_size = 16, 
@@ -18,7 +18,7 @@ train_loaders = {
     ), 
     "val":torch.utils.data.DataLoader(
         ImageDataset(
-            data_dir = "../../datasets/P-ACS/{}/".format("P"), 
+            data_dir = "../../datasets/ACS-P/{}/".format("P"), 
             augment = False, 
         ), 
         num_workers = 8, batch_size = 16, 
@@ -37,7 +37,7 @@ scheduler = optim.lr_scheduler.StepLR(
     step_size = 20, gamma = 0.1, 
 )
 
-save_ckp_dir = "../ckps/P-ACS/{}".format("P")
+save_ckp_dir = "../ckps/ACS-P/{}".format("P")
 if not os.path.exists(save_ckp_dir):
     os.makedirs(save_ckp_dir)
 train_fn(
