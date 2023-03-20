@@ -40,6 +40,6 @@ class ImageDataset(torch.utils.data.Dataset):
             image, 
             code = cv2.COLOR_BGR2RGB, 
         )
-        image, label, domain = self.transform(image = image)["image"], int(image_file.split("/")[-2]), int(image_file.split("/")[-1].split("_")[0])
+        image, label = self.transform(image = image)["image"], int(image_file.split("/")[-2])
 
-        return image, label, domain
+        return image, label

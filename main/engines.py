@@ -44,8 +44,8 @@ def train_fn(
         with torch.autograd.set_detect_anomaly(True):
             FT, FS,  = FT.train(), FS.train(), 
             GS = GS.train()
-            for images_T, labels_T, domains_T in tqdm.tqdm(train_loaders["train"]):
-                images_T, labels_T, domains_T = images_T.to(device), labels_T.to(device), domains_T.to(device)
+            for images_T, labels_T in tqdm.tqdm(train_loaders["train"]):
+                images_T, labels_T = images_T.to(device), labels_T.to(device)
                 images_S = GS(images_T)
 
                 features_T, features_S,  = FT.backbone(images_T.float()), FS.backbone(images_S.float()), 
@@ -81,8 +81,8 @@ def train_fn(
             FT, FS,  = FT.eval(), FS.eval(), 
             GS = GS.eval()
             running_loss, running_corrects,  = 0.0, 0.0, 
-            for images_T, labels_T, domains_T in tqdm.tqdm(train_loaders["val"]):
-                images_T, labels_T, domains_T = images_T.to(device), labels_T.to(device), domains_T.to(device)
+            for images_T, labels_T in tqdm.tqdm(train_loaders["val"]):
+                images_T, labels_T = images_T.to(device), labels_T.to(device)
 
                 logits = FT(images_T.float())
                 loss = F.cross_entropy(logits, labels_T)
