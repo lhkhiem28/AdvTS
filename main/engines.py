@@ -31,11 +31,11 @@ def train_fn(
     )
     scheduler_FS = optim.lr_scheduler.StepLR(
         optimizer_FS, 
-        step_size = 30, gamma = 0.1, 
+        step_size = 40, gamma = 0.1, 
     )
     scheduler_GS = optim.lr_scheduler.StepLR(
         optimizer_GS, 
-        step_size = 30, gamma = 0.1, 
+        step_size = 40, gamma = 0.1, 
     )
 
     for epoch in range(1, num_epochs + 1):
@@ -53,10 +53,17 @@ def train_fn(
                     features_T, features_S, 
                 )
 
+                pairwise_distances = []
+                for input, other,  in itertools.combinations(range(1, 4), 2):
+                    distance = torch.dist(
+                        input = torch.mean(images_T[domains_T == input], axis = 0), other = torch.mean(images_T[domains_T == other], axis = 0), 
+                        p = 2, 
+                    )
+                    pairwise_distances.append(distance)
                 loss_FS = F.cross_entropy(FT.classifier(features_S), labels_T) \
                         + discrepancy
                 loss_GS = F.cross_entropy(FT.classifier(features_S), labels_T) \
-                        - torch.minimum(discrepancy - 1.0, torch.zeros(1).cuda())
+                        - torch.minimum(discrepancy - sum(pairwise_distances)/len(pairwise_distances), torch.zeros(1).cuda())
                 for parameter in GS.parameters():
                     parameter.requires_grad = False
                 loss_FS.backward(retain_graph = True)

@@ -40,7 +40,7 @@ save_ckps_dir = "../ckps/ACS-P/{}".format("P")
 if not os.path.exists(save_ckps_dir):
     os.makedirs(save_ckps_dir)
 train_fn(
-    train_loaders, num_epochs = 60, 
+    train_loaders, num_epochs = 50, 
     models = models, 
     device = torch.device("cuda"), 
     save_ckps_dir = save_ckps_dir, 
