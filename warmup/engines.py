@@ -17,7 +17,7 @@ def train_fn(
 
         model.train()
         running_loss, running_corrects,  = 0.0, 0.0, 
-        for images, labels in tqdm.tqdm(train_loaders["train"]):
+        for images, labels, _ in tqdm.tqdm(train_loaders["train"]):
             images, labels = images.to(device), labels.to(device)
 
             logits = model(images.float())
@@ -36,7 +36,7 @@ def train_fn(
         with torch.no_grad():
             model.eval()
             running_loss, running_corrects,  = 0.0, 0.0, 
-            for images, labels in tqdm.tqdm(train_loaders["val"]):
+            for images, labels, _ in tqdm.tqdm(train_loaders["val"]):
                 images, labels = images.to(device), labels.to(device)
 
                 logits = model(images.float())

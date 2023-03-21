@@ -1,6 +1,8 @@
 import os, sys
 from libs import *
 
+from dassl.modeling.network import fcn_3x64_gctx
+
 class fcn_resnet18(nn.Module):
     def __init__(self, 
         num_classes = 0, 

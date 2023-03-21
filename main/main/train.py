@@ -18,7 +18,7 @@ train_loaders = {
     ), 
     "val":torch.utils.data.DataLoader(
         ImageDataset(
-            data_dir = "../../datasets/ACS-P/{}/".format("P"), 
+            data_dir = "../../datasets/ACS-P/{}/*/".format("P"), 
             augment = False, 
         ), 
         num_workers = 8, batch_size = 16, 
