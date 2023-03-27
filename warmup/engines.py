@@ -12,6 +12,7 @@ def train_fn(
     print("\nStart Training ...\n" + " = "*16)
     model = model.to(device)
 
+    best_accuracy = 0.0
     for epoch in range(1, num_epochs + 1):
         print("epoch {}/{}".format(epoch, num_epochs) + "\n" + " - "*16)
 
@@ -48,6 +49,11 @@ def train_fn(
             "val", 
             val_loss, val_accuracy, 
         ))
+        if val_accuracy > best_accuracy:
+            torch.save(
+                model, 
+                "{}/best.ptl".format(save_ckp_dir), 
+            )
 
         scheduler.step(), 
 
