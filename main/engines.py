@@ -21,13 +21,13 @@ def train_fn(
     print("\nStart Training ...\n" + " = "*16)
     FT, FS,  = models["FT"].to(device), models["FS"].to(device), 
     GS = models["GS"].to(device)
-    optimizer_FS = optim.SGD(
+    optimizer_FS = optim.AdamW(
         FS.parameters(), 
-        lr = 5e-4, 
+        lr = 1e-4, 
     )
-    optimizer_GS = optim.SGD(
+    optimizer_GS = optim.AdamW(
         GS.parameters(), 
-        lr = 5e-4, 
+        lr = 1e-4, 
     )
     scheduler_FS = optim.lr_scheduler.StepLR(
         optimizer_FS, 

@@ -10,23 +10,23 @@ from engines import train_fn
 train_loaders = {
     "train":torch.utils.data.DataLoader(
         ImageDataset(
-            data_dir = "../../datasets/ACS-P/{}/*/".format("ACS"), 
+            data_dir = "../../datasets/H-D/{}/*/".format("HAM"), 
             augment = True, 
         ), 
-        num_workers = 8, batch_size = 32, 
+        num_workers = 8, batch_size = 16, 
         shuffle = True, 
     ), 
     "val":torch.utils.data.DataLoader(
         ImageDataset(
-            data_dir = "../../datasets/ACS-P/{}/*/".format("P"), 
+            data_dir = "../../datasets/H-D/{}/*/".format("DMF"), 
             augment = False, 
         ), 
-        num_workers = 8, batch_size = 32, 
+        num_workers = 8, batch_size = 16, 
         shuffle = False, 
     ), 
 }
 FT = torch.load(
-    "../../warmup/ckps/ACS-P/{}/FT-best.ptl".format("P"), 
+    "../../warmup/ckps/H-D/{}/FT-best.ptl".format("DMF"), 
     map_location = "cpu", 
 )
 for parameter in FT.parameters():
@@ -36,7 +36,7 @@ models = {
     "GS":fcn_3x64_gctx(), 
 }
 
-save_ckps_dir = "../ckps/ACS-P/{}".format("P")
+save_ckps_dir = "../ckps/H-D/{}".format("DMF")
 if not os.path.exists(save_ckps_dir):
     os.makedirs(save_ckps_dir)
 train_fn(
