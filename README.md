@@ -71,7 +71,7 @@ The reproduced result is a little bit lower than the reported result in the pape
 | Target |           ResNet-18 |                   |           ResNet-50 |                   |
 |--------|--------------------:|------------------:|--------------------:|------------------:|
 |        | Reproduced Accuracy | Reported Accuracy | Reproduced Accuracy | Reported Accuracy |
-| Photo  |                94.4 |              97.3 |                97.8 |              98.9 |
+| Photo  |                94.4 |              97.3 |                97.7 |              98.9 |
 
 You can use the file `samples.ipynb` to view images generated from the Augmentor. For examples: 
 ![samples-1](main/main/samples/ACS/samples-1.jpg)
