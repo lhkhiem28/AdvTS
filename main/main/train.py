@@ -13,7 +13,7 @@ train_loaders = {
             data_dir = "../../datasets/ACS-P/{}/*/".format("ACS"), 
             augment = True, 
         ), 
-        num_workers = 8, batch_size = 16, 
+        num_workers = 8, batch_size = 32, 
         shuffle = True, 
     ), 
     "val":torch.utils.data.DataLoader(
@@ -21,12 +21,12 @@ train_loaders = {
             data_dir = "../../datasets/ACS-P/{}/*/".format("P"), 
             augment = False, 
         ), 
-        num_workers = 8, batch_size = 16, 
+        num_workers = 8, batch_size = 32, 
         shuffle = False, 
     ), 
 }
 FT = torch.load(
-    "../../warmup/ckps/ACS-P/{}/best.ptl".format("P"), 
+    "../../warmup/ckps/ACS-P/{}/FT-best.ptl".format("P"), 
     map_location = "cpu", 
 )
 for parameter in FT.parameters():
@@ -40,7 +40,7 @@ save_ckps_dir = "../ckps/ACS-P/{}".format("P")
 if not os.path.exists(save_ckps_dir):
     os.makedirs(save_ckps_dir)
 train_fn(
-    train_loaders, num_epochs = 50, 
+    train_loaders, num_epochs = 25, 
     models = models, 
     device = torch.device("cuda"), 
     save_ckps_dir = save_ckps_dir, 

@@ -31,13 +31,14 @@ def train_fn(
     )
     scheduler_FS = optim.lr_scheduler.StepLR(
         optimizer_FS, 
-        step_size = 40, gamma = 0.1, 
+        step_size = 20, gamma = 0.1, 
     )
     scheduler_GS = optim.lr_scheduler.StepLR(
         optimizer_GS, 
-        step_size = 40, gamma = 0.1, 
+        step_size = 20, gamma = 0.1, 
     )
 
+    best_accuracy = 0.0
     for epoch in range(1, num_epochs + 1):
         print("epoch {}/{}".format(epoch, num_epochs) + "\n" + " - "*16)
 
@@ -100,6 +101,15 @@ def train_fn(
             "val", 
             val_loss, val_accuracy, 
         ))
+        if val_accuracy > best_accuracy:
+            torch.save(
+                FT, 
+                "{}/FT-best.ptl".format(save_ckps_dir), 
+            )
+            torch.save(
+                GS, 
+                "{}/GS-best.ptl".format(save_ckps_dir), 
+            )
 
         scheduler_FS.step(), 
         scheduler_GS.step(), 

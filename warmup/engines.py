@@ -52,13 +52,13 @@ def train_fn(
         if val_accuracy > best_accuracy:
             torch.save(
                 model, 
-                "{}/best.ptl".format(save_ckp_dir), 
+                "{}/FT-best.ptl".format(save_ckp_dir), 
             )
 
         scheduler.step(), 
 
         torch.save(
             model, 
-            "{}/last.ptl".format(save_ckp_dir), 
+            "{}/FT-last.ptl".format(save_ckp_dir), 
         )
     print("\nFinish Training ...\n" + " = "*16)

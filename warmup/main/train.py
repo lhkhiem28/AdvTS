@@ -13,7 +13,7 @@ train_loaders = {
             data_dir = "../../datasets/ACS-P/{}/*/".format("ACS"), 
             augment = True, 
         ), 
-        num_workers = 8, batch_size = 16, 
+        num_workers = 8, batch_size = 32, 
         shuffle = True, 
     ), 
     "val":torch.utils.data.DataLoader(
@@ -21,7 +21,7 @@ train_loaders = {
             data_dir = "../../datasets/ACS-P/{}/*/".format("P"), 
             augment = False, 
         ), 
-        num_workers = 8, batch_size = 16, 
+        num_workers = 8, batch_size = 32, 
         shuffle = False, 
     ), 
 }
