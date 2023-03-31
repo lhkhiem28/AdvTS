@@ -26,7 +26,7 @@ train_loaders = {
     ), 
 }
 FT = torch.load(
-    "../../warmup/ckps/H-D/{}/FT-best.ptl".format("DMF"), 
+    "../../warmup/ckps/H-D/{}/FT-last.ptl".format("DMF"), 
     map_location = "cpu", 
 )
 for parameter in FT.parameters():
