@@ -116,10 +116,10 @@ def train_fn(
 
         torch.save(
             FT, 
-            "{}/FT.ptl".format(save_ckps_dir), 
+            "{}/FT-last.ptl".format(save_ckps_dir), 
         )
         torch.save(
             GS, 
-            "{}/GS.ptl".format(save_ckps_dir), 
+            "{}/GS-last.ptl".format(save_ckps_dir), 
         )
     print("\nFinish Training ...\n" + " = "*16)
